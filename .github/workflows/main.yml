@@ -9,3 +9,6 @@ on:
 jobs:
   check:
     uses: ./.github/workflows/check.yml
+
+  dummy:
+    uses: ./.github/workflows/dummy.yml

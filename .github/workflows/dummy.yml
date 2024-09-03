@@ -1,0 +1,10 @@
+name: Dummy
+
+on:
+  workflow_call:
+
+jobs:
+  dummy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Dummy job OK!'
