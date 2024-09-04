@@ -19,4 +19,5 @@ runs:
       with:
         version: 9.4.0
     - name: Print parameters
+      shell: bash
       run: echo ${{ inputs.app_dir }}
