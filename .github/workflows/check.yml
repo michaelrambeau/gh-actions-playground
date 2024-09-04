@@ -12,6 +12,6 @@ jobs:
       - name: Set up Node.js and PNPM
         uses: ./.github/shared-actions/setup-nodejs
         with:
-          app_dir: "my-app"
+          app_dir: my-app
       - name: Dummy check
         run: echo 'Check OK!'
