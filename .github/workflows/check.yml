@@ -7,4 +7,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'Check OK!'
+      - name: Set up Node.js and PNPM
+        uses: ./.github/shared-actions/setup-nodejs
+      - name: Dummy check
+        run: echo 'Check OK!'
