@@ -2,14 +2,10 @@ name: Check
 
 on:
   workflow_call:
+  workflow_dispatch:
 
 env:
   APP_DIRECTORY: ./app
-
-# defaults:
-#   run:
-#     shell: bash
-#     working-directory: ./app
 
 jobs:
   check:

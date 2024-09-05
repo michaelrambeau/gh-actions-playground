@@ -6,6 +6,9 @@ on:
     branches:
       - $default-branch
 
+env:
+  APP_DIRECTORY: ./app
+
 jobs:
   check:
     uses: ./.github/workflows/check.yml
