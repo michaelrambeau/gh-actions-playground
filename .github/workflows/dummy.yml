@@ -10,4 +10,6 @@ jobs:
       run:
         working-directory: app
     steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
       - run: echo 'Dummy job OK!'
