@@ -3,6 +3,9 @@ name: Check
 on:
   workflow_call:
 
+env:
+  APP_DIRECTORY: ./app
+
 # defaults:
 #   run:
 #     shell: bash
@@ -13,14 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./app
+        working-directory: ${{ env.APP_DIRECTORY }}
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
       - name: Set up Node.js and PNPM
         uses: ./.github/shared-actions/setup-nodejs
         with:
-          app_dir: ./app
+          app_dir: ${{ env.APP_DIRECTORY }}
       - name: Dummy check
         run: echo 'Check OK!'
       - name: Hello world
