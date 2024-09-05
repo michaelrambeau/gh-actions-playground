@@ -1,0 +1,16 @@
+name: Dummy
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  dummy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - run: echo 'Dummy job OK!'

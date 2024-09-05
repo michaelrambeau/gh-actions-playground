@@ -1,0 +1,26 @@
+name: Check
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+env:
+  APP_DIRECTORY: ./app
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.APP_DIRECTORY }}
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js and PNPM
+        uses: ./.github/shared-actions/setup-nodejs
+        with:
+          app_dir: ${{ env.APP_DIRECTORY }}
+      - name: Dummy check
+        run: echo 'Check OK!'
+      - name: Hello world
+        run: pnpm run hello
