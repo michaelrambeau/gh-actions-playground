@@ -1,0 +1,21 @@
+name: Deploy Production
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to production
+        run: echo "Deploying to production"
+
+      - name: Get tag name
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Use tag name
+        run: echo "The tag name is ${{ env.TAG_NAME }}"

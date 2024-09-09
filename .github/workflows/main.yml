@@ -15,3 +15,8 @@ jobs:
 
   dummy:
     uses: ./.github/workflows/dummy.yml
+
+  deploy-production:
+    needs: check
+    if: startsWith(github.ref, 'refs/tags/')
+    uses: ./.github/workflows/deploy-production.yml
