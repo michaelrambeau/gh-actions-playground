@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 env:
-  APP_DIRECTORY: ./app
+  APP_DIRECTORY: ./remix-app
 
 jobs:
   lint:
