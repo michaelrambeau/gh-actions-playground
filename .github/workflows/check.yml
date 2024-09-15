@@ -25,9 +25,9 @@ jobs:
       - name: Dummy check
         run: |
           echo 'Check OK!'
-          echo "## Dummy check OK" >> $GITHUB_STEP_SUMMARY
+          echo "## Dummy check OK :rocket:" >> $GITHUB_STEP_SUMMARY
 
       - name: Hello world
         run: |
           pnpm run hello
-          echo "## Hello world OK" >> $GITHUB_STEP_SUMMARY
+          echo "## Hello world OK! :rocket:" >> $GITHUB_STEP_SUMMARY
