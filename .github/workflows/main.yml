@@ -36,7 +36,7 @@ jobs:
     steps:
       - name: Run API checks
         if: ${{ needs.changes.outputs.api == 'true' }}
-        uses: ./.github/workflows/api-check.yml
+        run: gh workflow run .github/workflows/api-check.yml
       - name: Mark as successful if skipped
         if: ${{ needs.changes.outputs.api == 'false' }}
         run: echo "API checks skipped"
@@ -47,7 +47,7 @@ jobs:
     steps:
       - name: Run Web checks
         if: ${{ needs.changes.outputs.web == 'true' }}
-        uses: ./.github/workflows/web-check.yml
+        run: gh workflow run .github/workflows/web-check.yml
       - name: Mark as successful if skipped
         if: ${{ needs.changes.outputs.web == 'false' }}
         run: echo "Web checks skipped"
