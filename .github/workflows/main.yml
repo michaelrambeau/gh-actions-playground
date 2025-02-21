@@ -35,11 +35,11 @@ jobs:
     needs: changes
     uses: ./.github/workflows/api-check.yml
     with:
-      skip: ${{ needs.changes.outputs.api }}
+      enabled: ${{ needs.changes.outputs.api }}
 
   # Web checks
   main-web-check:
     needs: changes
     uses: ./.github/workflows/web-check.yml
     with:
-      skip: ${{ needs.changes.outputs.web }}
+      enabled: ${{ needs.changes.outputs.web }}

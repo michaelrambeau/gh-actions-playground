@@ -3,7 +3,7 @@ name: API Check
 on:
   workflow_call:
     inputs:
-      skip:
+      enabled:
         description: "Skip the workflow steps"
         default: "false"
         type: "string"
@@ -12,7 +12,7 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    if: ${{ inputs.skip != 'true' }}
+    if: ${{ inputs.enabled == 'true' }}
     steps:
       - name: Lint
         run: |
