@@ -30,24 +30,16 @@ jobs:
       api: ${{ steps.filter.outputs.api }}
       web: ${{ steps.filter.outputs.web }}
 
+  # API checks
   main-api-check:
     needs: changes
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run API checks
-        if: ${{ needs.changes.outputs.api == 'true' }}
-        run: gh workflow run .github/workflows/api-check.yml
-      - name: Mark as successful if skipped
-        if: ${{ needs.changes.outputs.api == 'false' }}
-        run: echo "API checks skipped"
+    uses: ./.github/workflows/api-check.yml
+    with:
+      skip: ${{ needs.changes.outputs.api }}
 
+  # Web checks
   main-web-check:
     needs: changes
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run Web checks
-        if: ${{ needs.changes.outputs.web == 'true' }}
-        run: gh workflow run .github/workflows/web-check.yml
-      - name: Mark as successful if skipped
-        if: ${{ needs.changes.outputs.web == 'false' }}
-        run: echo "Web checks skipped"
+    uses: ./.github/workflows/web-check.yml
+    with:
+      skip: ${{ needs.changes.outputs.web }}

@@ -2,11 +2,17 @@ name: Web Check
 
 on:
   workflow_call:
+    inputs:
+      skip:
+        description: "Skip the workflow steps"
+        default: "false"
+        type: "string"
   workflow_dispatch:
 
 jobs:
   lint:
     runs-on: ubuntu-latest
+    if: ${{ inputs.skip != 'true' }}
     steps:
       - name: Lint
         run: |
