@@ -35,8 +35,6 @@ jobs:
     needs: changes
     if: needs.changes.outputs.api == 'true'
     uses: ./.github/workflows/api-check.yml
-    with:
-      RUNNER_IMAGE: ${{ vars.API_RUNNER_IMAGE }}
 
   # Web checks
   main-web-check:
