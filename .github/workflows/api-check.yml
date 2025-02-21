@@ -2,12 +2,21 @@ name: API Check
 
 on:
   workflow_call:
+    inputs:
+      enabled:
+        description: "Skip the workflow steps"
+        default: "false"
+        type: "string"
   workflow_dispatch:
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - name: Check if enabled
+        if: ${{ inputs.enabled == 'false' }}
+        run: echo "Skipping linting"
       - name: Lint
+        if: ${{ inputs.enabled == 'true' }}
         run: |
           echo "## API Linting OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY
