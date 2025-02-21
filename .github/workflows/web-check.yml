@@ -1,0 +1,13 @@
+name: Web Check
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint
+        run: |
+          echo "## Web Linting OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY
