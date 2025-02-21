@@ -12,8 +12,11 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    if: ${{ inputs.enabled == 'true' }}
     steps:
+      - name: Check if enabled
+        if: ${{ inputs.enabled == 'false' }}
+        run: echo "Skipping linting"
       - name: Lint
+        if: ${{ inputs.enabled == 'true' }}
         run: |
           echo "## Web Linting OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY
