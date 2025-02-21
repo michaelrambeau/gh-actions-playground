@@ -4,19 +4,60 @@ on:
   push:
   pull_request:
     branches:
-      - $default-branch
-
-env:
-  APP_DIRECTORY: ./remix-app
+      - main
 
 jobs:
-  check:
-    uses: ./.github/workflows/check.yml
+  # Detect what files have changed in the whole PR, to trigger only the necessary checks
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            api:
+              - 'api/**'
+              - 'packages/**'
+            web:
+              - 'web/**'
+              - 'packages/**'
 
-  dummy:
-    uses: ./.github/workflows/dummy.yml
+    outputs:
+      api: ${{ steps.filter.outputs.api }}
+      web: ${{ steps.filter.outputs.web }}
 
-  deploy-production:
-    needs: check
-    if: startsWith(github.ref, 'refs/tags/')
-    uses: ./.github/workflows/deploy-production.yml
+  # API checks
+  main-api-check:
+    needs: changes
+    if: needs.changes.outputs.api == 'true'
+    uses: ./.github/workflows/api-check.yml
+    with:
+      RUNNER_IMAGE: ${{ vars.API_RUNNER_IMAGE }}
+
+  # Web checks
+  main-web-check:
+    needs: changes
+    if: needs.changes.outputs.web == 'true'
+    uses: ./.github/workflows/web-check.yml
+
+  # Skip API checks if no API changes
+  skip-api-check:
+    runs-on: ubuntu-latest
+    needs: changes
+    if: always() && needs.changes.outputs.api != 'true'
+    steps:
+      - name: Mark API check as skipped
+        run: echo "API check skipped"
+
+  # Skip Web checks if no Web changes
+  skip-web-check:
+    runs-on: ubuntu-latest
+    needs: changes
+    if: always() && needs.changes.outputs.web != 'true'
+    steps:
+      - name: Mark Web check as skipped
+        run: echo "Web check skipped"
