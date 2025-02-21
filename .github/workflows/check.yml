@@ -5,10 +5,10 @@ on:
   workflow_dispatch:
 
 env:
-  APP_DIRECTORY: ./app
+  APP_DIRECTORY: ./remix-app
 
 jobs:
-  check:
+  lint:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -16,11 +16,40 @@ jobs:
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
+
       - name: Set up Node.js and PNPM
         uses: ./.github/shared-actions/setup-nodejs
         with:
           app_dir: ${{ env.APP_DIRECTORY }}
+
+      - name: Lint
+        run: pnpm run lint
+
       - name: Dummy check
-        run: echo 'Check OK!'
+        run: |
+          echo 'Check OK!'
+          echo "## Dummy check OK :rocket:" >> $GITHUB_STEP_SUMMARY
+
       - name: Hello world
-        run: pnpm run hello
+        run: |
+          pnpm run hello
+          echo "## Hello world OK! :rocket:" >> $GITHUB_STEP_SUMMARY
+
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.APP_DIRECTORY }}
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js and PNPM
+        uses: ./.github/shared-actions/setup-nodejs
+        with:
+          app_dir: ${{ env.APP_DIRECTORY }}
+
+      - name: Hello world
+        run: |
+          pnpm test
+          echo "## Tests OK! :rocket:" >> $GITHUB_STEP_SUMMARY

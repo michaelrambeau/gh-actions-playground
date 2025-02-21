@@ -7,7 +7,7 @@ on:
       - $default-branch
 
 env:
-  APP_DIRECTORY: ./app
+  APP_DIRECTORY: ./remix-app
 
 jobs:
   check:
