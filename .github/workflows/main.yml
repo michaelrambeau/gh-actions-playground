@@ -49,7 +49,7 @@ jobs:
     if: always() && needs.changes.outputs.api != 'true'
     steps:
       - name: Mark API check as skipped
-        run: echo "API check skipped"
+        run: echo "status=success" >> $GITHUB_OUTPUT
 
   # Skip Web checks if no Web changes
   skip-web-check:
@@ -58,4 +58,4 @@ jobs:
     if: always() && needs.changes.outputs.web != 'true'
     steps:
       - name: Mark Web check as skipped
-        run: echo "Web check skipped"
+        run: echo "status=success" >> $GITHUB_OUTPUT
