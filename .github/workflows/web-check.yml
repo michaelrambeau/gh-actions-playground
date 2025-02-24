@@ -21,5 +21,6 @@ jobs:
         run: |
           echo "## Web Linting OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY
       - name: Test
+        if: ${{ inputs.enabled == 'true' }}
         run: |
           echo "## Web Test OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY
