@@ -10,13 +10,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
+  check:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if enabled
+      - name: Skip if disabled
         if: ${{ inputs.enabled == 'false' }}
-        run: echo "Skipping linting"
+        run: echo "Skipping checks"
       - name: Lint
         if: ${{ inputs.enabled == 'true' }}
         run: |
           echo "## Web Linting OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY
+      - name: Test
+        run: |
+          echo "## Web Test OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY
