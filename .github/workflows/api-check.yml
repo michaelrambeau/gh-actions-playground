@@ -10,20 +10,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  check:
-    if: ${{ inputs.enabled == 'true' }}
+  lint:
     runs-on: ubuntu-latest
     steps:
+      - name: Skip if disabled
+        if: ${{ inputs.enabled == 'false' }}
+        run: echo "Skipping linting"
       - name: Lint
+        if: ${{ inputs.enabled == 'true' }}
         run: |
           echo "## API Linting OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY
       - name: Test
         run: |
-          echo "## API Linting OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY
-
-  skip:
-    if: ${{ inputs.enabled == 'false' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Skip
-        run: echo "Skipping checks"
+          echo "## API Test OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY
