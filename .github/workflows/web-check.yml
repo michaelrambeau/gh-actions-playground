@@ -2,25 +2,15 @@ name: Web Check
 
 on:
   workflow_call:
-    inputs:
-      enabled:
-        description: "Skip the workflow steps"
-        default: "false"
-        type: "string"
   workflow_dispatch:
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Skip if disabled
-        if: ${{ inputs.enabled == 'false' }}
-        run: echo "Skipping checks"
       - name: Lint
-        if: ${{ inputs.enabled == 'true' }}
         run: |
           echo "## Web Linting OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY
       - name: Test
-        if: ${{ inputs.enabled == 'true' }}
         run: |
           echo "## Web Test OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY

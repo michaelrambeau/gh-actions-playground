@@ -40,6 +40,10 @@ jobs:
   # Web checks
   main-web-check:
     needs: changes
+    if: ${{ needs.changes.outputs.web == 'true' }}
     uses: ./.github/workflows/web-check.yml
-    with:
-      enabled: ${{ needs.changes.outputs.web }}
+
+  skip-web-check:
+    needs: changes
+    if: ${{ needs.changes.outputs.web == 'false' }}
+    uses: ./.github/workflows/web-skip.yml

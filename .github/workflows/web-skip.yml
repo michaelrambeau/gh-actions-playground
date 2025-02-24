@@ -1,0 +1,12 @@
+name: Web Skip
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  check: # it has to be called `check` so that we can pick `... / check` from GitHub Actions UI as the required job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip if disabled
+        run: echo "Skipping checks"
