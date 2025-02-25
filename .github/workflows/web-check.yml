@@ -5,8 +5,8 @@ on:
     inputs:
       enabled:
         description: "Skip the workflow steps"
-        default: "false"
-        type: "string"
+        default: false
+        type: "boolean"
   workflow_dispatch:
 
 jobs:
@@ -14,18 +14,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Skip if not needed
-        if: ${{ inputs.enabled == 'false' }}
+        if: ${{ !inputs.enabled }}
         run: echo "Skip web check"
 
       - name: Code Checkout
-        if: ${{ inputs.enabled == 'true' }}
+        if: ${{ inputs.enabled }}
         run: |
           echo "Code Checkout"
       - name: Lint
-        if: ${{ inputs.enabled == 'true' }}
+        if: ${{ inputs.enabled }}
         run: |
           echo "## Web Lint OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY
       - name: Test
-        if: ${{ inputs.enabled == 'true' }}
+        if: ${{ inputs.enabled }}
         run: |
           echo "## API Lint OK! :white_check_mark:" >> $GITHUB_STEP_SUMMARY
